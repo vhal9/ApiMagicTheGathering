@@ -2,6 +2,7 @@ package com.zappts.MagicTheGathering.controller.advice;
 
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
 import com.zappts.MagicTheGathering.exception.PackNotFoundException;
+import com.zappts.MagicTheGathering.exception.RemoveNonExistentCardException;
 import com.zappts.MagicTheGathering.exception.UserNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,11 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(PackNotFoundException.class)
     public ResponseEntity<String> handlePackNotFoundException(PackNotFoundException ex) {
+        return handleNotFoundException(ex.getMessage());
+    }
+
+    @ExceptionHandler(RemoveNonExistentCardException.class)
+    public ResponseEntity<String> handleRemoveNonExistentCardException(RemoveNonExistentCardException ex) {
         return handleNotFoundException(ex.getMessage());
     }
 
