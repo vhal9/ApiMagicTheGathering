@@ -6,7 +6,6 @@ import com.zappts.MagicTheGathering.domain.dto.PriceOfCardDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface CardService {
