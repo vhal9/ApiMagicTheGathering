@@ -4,9 +4,11 @@ import com.zappts.MagicTheGathering.domain.dto.CardDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.domain.entity.Pack;
+import com.zappts.MagicTheGathering.domain.entity.UserEntity;
 import com.zappts.MagicTheGathering.domain.mapper.CardMapper;
 import com.zappts.MagicTheGathering.domain.mapper.PackDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.PackMapper;
+import com.zappts.MagicTheGathering.exception.ForbiddenException;
 import com.zappts.MagicTheGathering.exception.PackNotFoundException;
 import com.zappts.MagicTheGathering.exception.RemoveNonExistentCardException;
 import com.zappts.MagicTheGathering.repository.PackRepository;
@@ -31,6 +33,7 @@ public class PackServiceImpl implements PackService {
     private final PackMapper packMapper;
     private final CardMapper cardMapper;
     private final CardService cardService;
+    private final UserServiceImpl userService;
 
 
     @Override
@@ -51,24 +54,27 @@ public class PackServiceImpl implements PackService {
 
     @Override
     public PackDTO createPack(PackDTO packDTO) {
+        UserEntity user = userService.getLoggedUser();
         Pack pack = packMapper.execute(packDTO);
+        pack.setUser(user);
         return packDTOMapper.execute(packRepository.save(pack));
     }
 
     @Override
     @Transactional
-    public PackDTO addCardToPack(Long idPack, CardDTO cardDTO) throws PackNotFoundException {
+    public PackDTO addCardToPack(Long idPack, CardDTO cardDTO) throws PackNotFoundException, ForbiddenException {
 
         Pack pack = getPackbyId(idPack);
+        verifyIfUserHasPermission(pack);
         pack.addCard(createOrGetCardByCardDTO(cardDTO));
         return packDTOMapper.execute(packRepository.save(pack));
     }
 
     @Override
-    public PackDTO removeCardToPack(Long idPack, Long idCard) throws RemoveNonExistentCardException, PackNotFoundException {
+    public PackDTO removeCardToPack(Long idPack, Long idCard) throws RemoveNonExistentCardException, PackNotFoundException, ForbiddenException {
 
         Pack pack = getPackbyId(idPack);
-
+        verifyIfUserHasPermission(pack);
         if (!packHasCard(pack, idCard))
             throw new RemoveNonExistentCardException();
 
@@ -121,6 +127,10 @@ public class PackServiceImpl implements PackService {
                     .collect(Collectors.toList())
             );
         }
+    }
+
+    public void verifyIfUserHasPermission(Pack pack) throws ForbiddenException {
+        userService.verifyIfUserHasPermission(pack.getUser());
     }
 
 

@@ -4,6 +4,7 @@ import com.zappts.MagicTheGathering.domain.dto.CardDTO;
 import com.zappts.MagicTheGathering.domain.dto.NumberOfSameTypeOfCardDTO;
 import com.zappts.MagicTheGathering.domain.dto.PriceOfCardDTO;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
+import com.zappts.MagicTheGathering.exception.ForbiddenException;
 import com.zappts.MagicTheGathering.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,13 +26,13 @@ public class CardController {
     }
 
     @PatchMapping("/updatePrice")
-    public ResponseEntity<CardDTO> changePrice(@RequestBody @Valid PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException {
+    public ResponseEntity<CardDTO> changePrice(@RequestBody @Valid PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException {
         return new ResponseEntity<>(cardService.changePrice(priceOfCardDTO), HttpStatus.OK);
     }
 
     @PatchMapping("/updateNumberOfSameType")
     public ResponseEntity<CardDTO> changeNumberOfSameType(@RequestBody @Valid NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO)
-            throws CardNotFoundException {
+            throws CardNotFoundException, ForbiddenException {
 
         return new ResponseEntity<>(cardService.changeNumberOfSameType(numberOfSameTypeOfCardDTO),
                 HttpStatus.OK);

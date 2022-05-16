@@ -4,6 +4,7 @@ import com.zappts.MagicTheGathering.domain.dto.UserDTO;
 import com.zappts.MagicTheGathering.domain.entity.UserEntity;
 import com.zappts.MagicTheGathering.domain.mapper.UserDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.UserMapper;
+import com.zappts.MagicTheGathering.exception.ForbiddenException;
 import com.zappts.MagicTheGathering.exception.UserNotFoundException;
 import com.zappts.MagicTheGathering.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -82,4 +84,10 @@ public class UserServiceImpl implements UserDetailsService {
         return userOptional.get();
     }
 
+    public void verifyIfUserHasPermission(UserEntity user) throws ForbiddenException {
+        UserEntity loggedUser = getLoggedUser();
+        if (!Objects.equals(loggedUser.getId(), user.getId())){
+            throw new ForbiddenException();
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.zappts.MagicTheGathering.controller;
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackDTO;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
+import com.zappts.MagicTheGathering.exception.ForbiddenException;
 import com.zappts.MagicTheGathering.exception.PackNotFoundException;
 import com.zappts.MagicTheGathering.exception.RemoveNonExistentCardException;
 import com.zappts.MagicTheGathering.service.PackService;
@@ -41,13 +42,13 @@ public class PackController {
     }
 
     @PatchMapping("/{id}/add")
-    public ResponseEntity<PackDTO> addCard(@PathVariable("id") Long idPack, @RequestBody @Valid CardDTO cardDTO) throws PackNotFoundException {
+    public ResponseEntity<PackDTO> addCard(@PathVariable("id") Long idPack, @RequestBody @Valid CardDTO cardDTO) throws PackNotFoundException, ForbiddenException {
         return new ResponseEntity<>(packService.addCardToPack(idPack, cardDTO), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}/remove/{idCard}")
     public ResponseEntity<PackDTO> removeCard(@PathVariable("id") Long idPack, @PathVariable Long idCard)
-            throws PackNotFoundException, RemoveNonExistentCardException, CardNotFoundException {
+            throws PackNotFoundException, RemoveNonExistentCardException, CardNotFoundException, ForbiddenException {
         return new ResponseEntity<>(packService.removeCardToPack(idPack, idCard), HttpStatus.OK);
     }
 
