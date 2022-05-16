@@ -38,6 +38,6 @@ public class CardDTO {
     @Min(value = 0, message = "Campo do número de cartas com essa característica deve ser maior ou igual a 0.")
     private Integer numberOfCardsOfTheSameType;
 
-    private UserDTO userDTO = null;
+    private Long idUsuario;
 
 }

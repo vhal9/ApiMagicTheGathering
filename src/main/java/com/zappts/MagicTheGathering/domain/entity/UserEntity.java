@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
@@ -26,5 +26,7 @@ public class User {
     private String name;
 
     private String password;
+
+    private String role;
 
 }

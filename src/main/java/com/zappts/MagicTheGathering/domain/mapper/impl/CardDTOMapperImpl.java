@@ -17,6 +17,7 @@ public class CardDTOMapperImpl implements CardDTOMapper {
                 .language(card.getLanguage())
                 .numberOfCardsOfTheSameType(card.getNumberOfCardsOfTheSameType())
                 .price(card.getPrice())
+                .idUsuario(card.getUser().getId())
                 .build();
     }
 }
