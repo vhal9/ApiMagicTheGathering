@@ -1,10 +1,11 @@
 package com.zappts.MagicTheGathering.controller;
 
 import com.zappts.MagicTheGathering.domain.dto.UserDTO;
-import com.zappts.MagicTheGathering.service.UserService;
+import com.zappts.MagicTheGathering.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> listAllUsers() {
@@ -29,6 +31,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
+        String encryptPassword = passwordEncoder.encode(userDTO.getPassword());
+        userDTO.setPassword(encryptPassword);
         return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
     }
 
