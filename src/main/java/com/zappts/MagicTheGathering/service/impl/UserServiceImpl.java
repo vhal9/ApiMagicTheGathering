@@ -1,7 +1,7 @@
 package com.zappts.MagicTheGathering.service.impl;
 
 import com.zappts.MagicTheGathering.domain.dto.UserDTO;
-import com.zappts.MagicTheGathering.domain.entity.User;
+import com.zappts.MagicTheGathering.domain.entity.UserEntity;
 import com.zappts.MagicTheGathering.domain.mapper.UserDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.UserMapper;
 import com.zappts.MagicTheGathering.exception.UserNotFoundException;
@@ -24,25 +24,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> listUsers() {
-        List<User> userList = userRepository.findAll();
+        List<UserEntity> userList = userRepository.findAll();
         return userList.stream().map(userDTOMapper::execute)
                 .collect(Collectors.toList());
     }
 
-    @Override
     public UserDTO findUserById(Long id) throws Exception {
-        User user = getUserById(id);
+        UserEntity user = getUserById(id);
         return userDTOMapper.execute(user);
     }
 
-    @Override
     public UserDTO createUser(UserDTO userDTO) {
-        User user = userMapper.execute(userDTO);
+        UserEntity user = userMapper.execute(userDTO);
+        user.setRole("USER");
         return userDTOMapper.execute(userRepository.save(user));
     }
 
-    public User getUserById(Long id) throws Exception {
-        Optional<User> userOptional = userRepository.findById(id);
+    public UserEntity getUserById(Long id) throws Exception {
+        Optional<UserEntity> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()){
             throw new UserNotFoundException(id);
         }
