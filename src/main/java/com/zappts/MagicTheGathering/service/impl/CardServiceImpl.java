@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,9 +41,9 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardDTO changePrice(PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException {
+    public CardDTO changePrice(Long id, PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException {
 
-        Card card = getCardById(priceOfCardDTO.getId());
+        Card card = getCardById(id);
         verifyIfUserHasPermission(card);
 
         card.setPrice(priceOfCardDTO.getPrice());
@@ -52,9 +51,9 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardDTO changeNumberOfSameType(NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO)
+    public CardDTO changeNumberOfSameType(Long id, NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO)
             throws CardNotFoundException, ForbiddenException {
-        Card card = getCardById(numberOfSameTypeOfCardDTO.getId());
+        Card card = getCardById(id);
         verifyIfUserHasPermission(card);
 
         card.setNumberOfCardsOfTheSameType(numberOfSameTypeOfCardDTO.getNumberOfSameType());

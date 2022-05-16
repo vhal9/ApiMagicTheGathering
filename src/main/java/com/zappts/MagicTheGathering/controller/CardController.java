@@ -25,16 +25,16 @@ public class CardController {
         return new ResponseEntity<>(cardService.listAll(), HttpStatus.OK);
     }
 
-    @PatchMapping("/updatePrice")
-    public ResponseEntity<CardDTO> changePrice(@RequestBody @Valid PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException {
-        return new ResponseEntity<>(cardService.changePrice(priceOfCardDTO), HttpStatus.OK);
+    @PatchMapping("{id}/updatePrice")
+    public ResponseEntity<CardDTO> changePrice(@PathVariable("id") Long id, @RequestBody @Valid PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException {
+        return new ResponseEntity<>(cardService.changePrice(id, priceOfCardDTO), HttpStatus.OK);
     }
 
-    @PatchMapping("/updateNumberOfSameType")
-    public ResponseEntity<CardDTO> changeNumberOfSameType(@RequestBody @Valid NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO)
+    @PatchMapping("{id}/updateNumberOfSameType")
+    public ResponseEntity<CardDTO> changeNumberOfSameType(@PathVariable("id") Long id, @RequestBody @Valid NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO)
             throws CardNotFoundException, ForbiddenException {
 
-        return new ResponseEntity<>(cardService.changeNumberOfSameType(numberOfSameTypeOfCardDTO),
+        return new ResponseEntity<>(cardService.changeNumberOfSameType(id, numberOfSameTypeOfCardDTO),
                 HttpStatus.OK);
     }
 }

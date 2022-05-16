@@ -15,9 +15,9 @@ public interface CardService {
 
     Card createCard(CardDTO cardDTO);
 
-    CardDTO changePrice(PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException;
+    CardDTO changePrice(Long id, PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException;
 
-    CardDTO changeNumberOfSameType(NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO) throws CardNotFoundException, ForbiddenException;
+    CardDTO changeNumberOfSameType(Long id, NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO) throws CardNotFoundException, ForbiddenException;
 
     Boolean verifyIfCardExists(Long id);
 
