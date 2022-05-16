@@ -9,6 +9,7 @@ import com.zappts.MagicTheGathering.domain.mapper.CardMapper;
 import com.zappts.MagicTheGathering.domain.mapper.PackDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.PackMapper;
 import com.zappts.MagicTheGathering.exception.ForbiddenException;
+import com.zappts.MagicTheGathering.exception.PackAlreadyExistsException;
 import com.zappts.MagicTheGathering.exception.PackNotFoundException;
 import com.zappts.MagicTheGathering.exception.RemoveNonExistentCardException;
 import com.zappts.MagicTheGathering.repository.PackRepository;
@@ -53,7 +54,8 @@ public class PackServiceImpl implements PackService {
     }
 
     @Override
-    public PackDTO createPack(PackDTO packDTO) {
+    public PackDTO createPack(PackDTO packDTO) throws PackAlreadyExistsException {
+        verifyIfPackAlreadyExists(packDTO.getId());
         UserEntity user = userService.getLoggedUser();
         Pack pack = packMapper.execute(packDTO);
         pack.setUser(user);
@@ -131,6 +133,12 @@ public class PackServiceImpl implements PackService {
 
     public void verifyIfUserHasPermission(Pack pack) throws ForbiddenException {
         userService.verifyIfUserHasPermission(pack.getUser());
+    }
+
+    private void verifyIfPackAlreadyExists(Long id) throws PackAlreadyExistsException {
+        if (Objects.nonNull(id) && packRepository.findById(id).isPresent()) {
+            throw new PackAlreadyExistsException(id);
+        }
     }
 
 

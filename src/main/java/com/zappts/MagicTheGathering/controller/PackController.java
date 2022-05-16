@@ -2,10 +2,7 @@ package com.zappts.MagicTheGathering.controller;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackDTO;
-import com.zappts.MagicTheGathering.exception.CardNotFoundException;
-import com.zappts.MagicTheGathering.exception.ForbiddenException;
-import com.zappts.MagicTheGathering.exception.PackNotFoundException;
-import com.zappts.MagicTheGathering.exception.RemoveNonExistentCardException;
+import com.zappts.MagicTheGathering.exception.*;
 import com.zappts.MagicTheGathering.service.PackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,7 +34,7 @@ public class PackController {
     }
 
     @PostMapping
-    public ResponseEntity<PackDTO> createPack(@RequestBody @Valid PackDTO packDTO) {
+    public ResponseEntity<PackDTO> createPack(@RequestBody @Valid PackDTO packDTO) throws PackAlreadyExistsException {
         return new ResponseEntity<>(packService.createPack(packDTO), HttpStatus.OK);
     }
 

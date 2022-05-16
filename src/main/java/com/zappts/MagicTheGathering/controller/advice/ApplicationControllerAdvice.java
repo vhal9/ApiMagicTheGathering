@@ -49,6 +49,11 @@ public class ApplicationControllerAdvice {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(PackAlreadyExistsException.class)
+    public ResponseEntity<String> handlePackAlreadyExistsException(PackAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     private ResponseEntity<String> handleNotFoundException(String message) {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
