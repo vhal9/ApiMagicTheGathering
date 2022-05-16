@@ -22,6 +22,8 @@ public class Pack {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

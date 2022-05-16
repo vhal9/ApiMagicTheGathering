@@ -22,6 +22,7 @@ public class PackMapperImpl implements PackMapper {
     public Pack execute(PackDTO packDTO) {
         return Pack.builder()
                 .id(packDTO.getId())
+                .name(packDTO.getName())
                 .cards(getListOfCards(packDTO.getCardsDTO()))
                 .build();
     }
