@@ -23,7 +23,7 @@ public class PackDTOMapperImpl implements PackDTOMapper {
         return PackDTO.builder()
                 .id(pack.getId())
                 .name(pack.getName())
-                .idUsuario(pack.getUser().getId())
+                .idUser(pack.getUser().getId())
                 .cardsDTO(getListOfCardsDTO(pack.getCards()))
                 .build();
     }

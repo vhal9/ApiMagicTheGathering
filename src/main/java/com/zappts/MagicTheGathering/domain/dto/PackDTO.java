@@ -23,7 +23,7 @@ public class PackDTO {
     @Size(min = 4, max = 40, message = "Campo nome deve conter de 4 a 40 caracteres.")
     private String name;
 
-    private Long idUsuario;
+    private Long idUser;
 
     @Valid
     private List<CardDTO> cardsDTO = new ArrayList<>();
