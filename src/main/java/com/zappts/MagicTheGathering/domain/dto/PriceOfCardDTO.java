@@ -1,12 +1,14 @@
 package com.zappts.MagicTheGathering.domain.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Getter
+@Data
 public class PriceOfCardDTO {
 
     @NotNull(message = "Campo preço não pode ser nulo.")

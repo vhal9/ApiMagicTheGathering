@@ -1,11 +1,12 @@
 package com.zappts.MagicTheGathering.domain.dto;
 
+import lombok.Data;
 import lombok.Getter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@Getter
+@Data
 public class NumberOfSameTypeOfCardDTO {
 
     @NotNull(message = "Campo do número de cartas com essa característica não pode ser nulo")
