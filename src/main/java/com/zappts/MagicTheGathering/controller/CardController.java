@@ -25,6 +25,11 @@ public class CardController {
         return new ResponseEntity<>(cardService.listAll(), HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<CardDTO> createCard(@RequestBody @Valid CardDTO cardDTO) {
+        return new ResponseEntity<>(cardService.createCard(cardDTO), HttpStatus.CREATED);
+    }
+
     @PatchMapping("{id}/updatePrice")
     public ResponseEntity<CardDTO> changePrice(@PathVariable("id") Long id, @RequestBody @Valid PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException {
         return new ResponseEntity<>(cardService.changePrice(id, priceOfCardDTO), HttpStatus.OK);
