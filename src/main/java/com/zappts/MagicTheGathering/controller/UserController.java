@@ -1,6 +1,7 @@
 package com.zappts.MagicTheGathering.controller;
 
 import com.zappts.MagicTheGathering.domain.dto.UserDTO;
+import com.zappts.MagicTheGathering.exception.UsernameAlreadyExistsException;
 import com.zappts.MagicTheGathering.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) throws UsernameAlreadyExistsException {
         String encryptPassword = passwordEncoder.encode(userDTO.getPassword());
         userDTO.setPassword(encryptPassword);
         return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);

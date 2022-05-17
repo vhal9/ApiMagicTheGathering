@@ -54,6 +54,11 @@ public class ApplicationControllerAdvice {
         return handleBadRequestException(ex.getMessage());
     }
 
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ResponseEntity<String> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException ex) {
+        return handleBadRequestException(ex.getMessage());
+    }
+
     private ResponseEntity<String> handleNotFoundException(String message) {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }

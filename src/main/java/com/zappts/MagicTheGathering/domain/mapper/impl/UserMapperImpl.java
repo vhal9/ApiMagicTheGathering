@@ -12,7 +12,7 @@ public class UserMapperImpl implements UserMapper {
     public UserEntity execute(UserDTO userDTO) {
         return UserEntity.builder()
                 .id(userDTO.getId())
-                .name(userDTO.getName())
+                .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
                 .build();
     }

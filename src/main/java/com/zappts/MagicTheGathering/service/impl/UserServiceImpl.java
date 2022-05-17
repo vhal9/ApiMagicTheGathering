@@ -6,6 +6,7 @@ import com.zappts.MagicTheGathering.domain.mapper.UserDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.UserMapper;
 import com.zappts.MagicTheGathering.exception.ForbiddenException;
 import com.zappts.MagicTheGathering.exception.UserNotFoundException;
+import com.zappts.MagicTheGathering.exception.UsernameAlreadyExistsException;
 import com.zappts.MagicTheGathering.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserDetailsService {
         UserEntity user = getUserByUsername(username);
         return User
                 .builder()
-                .username(user.getName())
+                .username(user.getUsername())
                 .password(user.getPassword())
                 .roles(user.getRole())
                 .build();
@@ -50,9 +51,13 @@ public class UserServiceImpl implements UserDetailsService {
         return userDTOMapper.execute(user);
     }
 
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserDTO createUser(UserDTO userDTO) throws UsernameAlreadyExistsException {
         UserEntity user = userMapper.execute(userDTO);
         user.setRole("USER");
+        Optional<UserEntity> userEntityOptional = userRepository.findByName(user.getUsername());
+        if (userEntityOptional.isPresent()) {
+            throw new UsernameAlreadyExistsException();
+        }
         return userDTOMapper.execute(userRepository.save(user));
     }
 

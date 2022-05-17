@@ -11,7 +11,7 @@ public class UserDTOMapperImpl implements UserDTOMapper {
     public UserDTO execute(UserEntity user) {
         return UserDTO.builder()
                 .id(user.getId())
-                .name(user.getName())
+                .username(user.getUsername())
                 .password(user.getPassword())
                 .build();
     }
