@@ -1,6 +1,7 @@
 package com.zappts.MagicTheGathering.service.impl;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
+import com.zappts.MagicTheGathering.domain.dto.IdsOfCardsDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackCreationDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
@@ -57,7 +58,7 @@ public class PackServiceImpl implements PackService {
         UserEntity user = userService.getLoggedUser();
         Pack pack = packMapper.execute(packCreationDTO);
         pack.setUser(user);
-        pack.setCards(cardService.getListOfCardsByListOfIds(packCreationDTO.getIdCards()));
+        pack.setCards(cardService.getListOfCardsByListOfIds(packCreationDTO.getIdsCards()));
         return packDTOMapper.execute(packRepository.save(pack));
     }
 
@@ -85,6 +86,20 @@ public class PackServiceImpl implements PackService {
 
         removeCardByIdFromPack(pack, idCard);
         return packDTOMapper.execute(packRepository.save(pack));
+    }
+
+    @Override
+    public PackDTO addCardsToPack(Long idPack, IdsOfCardsDTO idsOfCardsDTO) throws PackNotFoundException, ForbiddenException, SomeCardsNotFoundException {
+        Pack pack = getPackbyId(idPack);
+        verifyIfUserHasPermission(pack);
+        addCardsToPack(pack, idsOfCardsDTO);
+
+        return packDTOMapper.execute(packRepository.save(pack));
+    }
+
+    private void addCardsToPack(Pack pack, IdsOfCardsDTO idsOfCardsDTO) throws SomeCardsNotFoundException {
+        List<Card> cardList = cardService.getListOfCardsByListOfIds(idsOfCardsDTO.getIdsCards());
+        pack.addCards(cardList);
     }
 
     public Pack getPackbyId(Long id) throws PackNotFoundException {

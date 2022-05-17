@@ -36,4 +36,7 @@ public class Pack {
         this.cards.add(card);
     }
 
+    public void addCards(List<Card> cardList) {
+        this.cards.addAll(cardList);
+    }
 }

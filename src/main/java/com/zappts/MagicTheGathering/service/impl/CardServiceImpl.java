@@ -81,7 +81,8 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<Card> getListOfCardsByListOfIds(List<Long> idCards) throws SomeCardsNotFoundException {
-        List<Card> cardList = cardRespository.findAllById(idCards);
+        Long userId = userService.getLoggedUser().getId();
+        List<Card> cardList = cardRespository.findAllByIdsAndByIdUser(idCards, userId);
         if (!Objects.equals(cardList.size(), idCards.size())) {
             throw new SomeCardsNotFoundException();
         }

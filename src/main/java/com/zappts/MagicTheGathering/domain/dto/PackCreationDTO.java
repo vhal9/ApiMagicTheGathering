@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class PackCreationDTO {
     @Size(min = 4, max = 40, message = "Campo nome deve conter de 4 a 40 caracteres.")
     private String name;
 
-    private List<Long> idCards;
+    @NotNull(message = "Campo idsCards não pode ser nulo.")
+    private List<Long> idsCards;
 
 }
