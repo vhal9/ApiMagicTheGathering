@@ -130,7 +130,7 @@ public class PackServiceImpl implements PackService {
         }
     }
 
-    public void verifyIfUserHasPermission(Pack pack) throws ForbiddenException {
+    private void verifyIfUserHasPermission(Pack pack) throws ForbiddenException {
         userService.verifyIfUserHasPermission(pack.getUser());
     }
 
