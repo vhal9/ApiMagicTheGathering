@@ -49,7 +49,7 @@ public class PackServiceImpl implements PackService {
         Pack pack = getPackbyId(id);
         if (Objects.nonNull(orderField))
             orderCardsByNameOrPrice(pack, orderField);
-        return packDTOMapper.execute(getPackbyId(id));
+        return packDTOMapper.execute(pack);
     }
 
     @Override
