@@ -12,6 +12,7 @@ import com.zappts.MagicTheGathering.domain.mapper.CardDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.CardMapper;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
 import com.zappts.MagicTheGathering.exception.ForbiddenException;
+import com.zappts.MagicTheGathering.exception.SomeCardsNotFoundException;
 import com.zappts.MagicTheGathering.repository.CardRespository;
 import com.zappts.MagicTheGathering.service.impl.CardServiceImpl;
 import com.zappts.MagicTheGathering.service.impl.UserServiceImpl;
@@ -23,9 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -252,6 +251,48 @@ public class CardServiceUnitTest {
         assertThrows(CardNotFoundException.class, () -> cardService.getCardById(any(Long.class)));
         verify(cardRespository, times(1)).findById(any(Long.class));
 
+    }
+
+    @Test
+    void itShouldReturnListOfCards_WhengetListOfCardsByListOfIdsWithExistingCards() throws SomeCardsNotFoundException {
+        List<Card> expectedCardList = new ArrayList<>();
+        Card cardMock = CardBuilder.builder().build().toCard();
+        Card cardMock2 = CardBuilder.builder().id(2L).build().toCard();
+        expectedCardList.add(cardMock);
+        expectedCardList.add(cardMock2);
+
+        UserEntity user = UserEntityBuilder.builder().build().toUserEntity();
+
+        List<Long> idsCards = new ArrayList<>(Arrays.asList(1L, 2L));
+
+        when(userService.getLoggedUser()).thenReturn(user);
+        when(cardRespository.findAllByIdsAndByIdUser(idsCards, user.getId())).thenReturn(expectedCardList);
+
+        List<Card> returnedCardList = cardService.getListOfCardsByListOfIds(idsCards);
+
+        verify(userService, times(1)).getLoggedUser();
+        verify(cardRespository, times(1)).findAllByIdsAndByIdUser(any(), anyLong());
+        assertThat(returnedCardList.size(), is(equalTo(expectedCardList.size())));
+    }
+
+    @Test
+    void itShouldReturnSomeCardsNotFoundException_WhengetListOfCardsByListOfIdsWithNonExistingCards() {
+        List<Card> cardList = new ArrayList<>();
+        Card cardMock = CardBuilder.builder().build().toCard();
+        cardList.add(cardMock);
+
+        UserEntity user = UserEntityBuilder.builder().build().toUserEntity();
+
+        List<Long> idsCards = new ArrayList<>(Arrays.asList(1L, 2L));
+
+        when(userService.getLoggedUser()).thenReturn(user);
+        when(cardRespository.findAllByIdsAndByIdUser(idsCards, user.getId())).thenReturn(cardList);
+
+        assertThrows(SomeCardsNotFoundException.class,
+                () -> cardService.getListOfCardsByListOfIds(idsCards));
+
+        verify(userService, times(1)).getLoggedUser();
+        verify(cardRespository, times(1)).findAllByIdsAndByIdUser(any(), anyLong());
     }
 
 
