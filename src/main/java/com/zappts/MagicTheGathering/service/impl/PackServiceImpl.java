@@ -84,7 +84,7 @@ public class PackServiceImpl implements PackService {
         if (!packHasCard(pack, idCard))
             throw new RemoveNonExistentCardException();
 
-        removeCardWithId(pack, idCard);
+        removeCardByIdFromPack(pack, idCard);
         return packDTOMapper.execute(packRepository.save(pack));
     }
 
@@ -107,7 +107,8 @@ public class PackServiceImpl implements PackService {
             cardDTO.setId(cardService.createCard(cardDTO).getId());
         }
     }
-    private void removeCardWithId(Pack pack, Long idCard) throws RemoveNonExistentCardException {
+
+    private void removeCardByIdFromPack(Pack pack, Long idCard) throws RemoveNonExistentCardException {
         Optional<Card> cardToRemove = pack.getCards().stream().filter(
                 card -> Objects.equals(card.getId(), idCard)).findFirst();
         if (cardToRemove.isEmpty())
