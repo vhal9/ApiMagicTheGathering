@@ -72,23 +72,28 @@ public class CardServiceUnitTest {
     }
 
     @Test
-    void itShouldReturnACard_WhenCreateCard(){
+    void itShouldReturnACardDTO_WhenCreateCard(){
 
         CardDTO cardDTOMock = CardDTOBuilder.builder().build().toCardDTO();
-        Card expectedCard = CardBuilder.builder().build().toCard();
         UserEntity user = UserEntityBuilder.builder().build().toUserEntity();
+
+        CardDTO expectedCardDTO = CardDTOBuilder.builder().build().toCardDTO();
+        Card expectedCard = CardBuilder.builder().build().toCard();
+        expectedCardDTO.setIdUsuario(user.getId());
         expectedCard.setUser(user);
 
         when(userService.getLoggedUser()).thenReturn(user);
         when(cardMapper.execute(cardDTOMock)).thenReturn(expectedCard);
         when(cardRespository.save(expectedCard)).thenReturn(expectedCard);
+        when(cardDTOMapper.execute(expectedCard)).thenReturn(expectedCardDTO);
 
-        Card returnedCard = cardService.createCard(cardDTOMock);
+        CardDTO returnedCardDTO = cardService.createCard(cardDTOMock);
 
         verify(userService, times(1)).getLoggedUser();
         verify(cardMapper, times(1)).execute(any(CardDTO.class));
         verify(cardRespository, times(1)).save(any(Card.class));
-        assertThat(returnedCard, is(equalTo(expectedCard)));
+        verify(cardDTOMapper, times(1)).execute(any(Card.class));
+        assertThat(returnedCardDTO, is(equalTo(expectedCardDTO)));
 
     }
 
@@ -210,21 +215,21 @@ public class CardServiceUnitTest {
     }
 
     @Test
-    void itShouldReturnTrue_WhenVerifyIfCardExistsWithExistingCard() {
+    void itShouldReturnTrue_WhenCardExistsWithExistingCard() {
         Card cardMock = CardBuilder.builder().build().toCard();
         when(cardRespository.findById(any(Long.class))).thenReturn(Optional.of(cardMock));
 
-        assertThat(Boolean.TRUE, is(equalTo(cardService.verifyIfCardExists(any(Long.class)))));
+        assertThat(Boolean.TRUE, is(equalTo(cardService.cardExists(any(Long.class)))));
         verify(cardRespository, times(1)).findById(any(Long.class));
 
     }
 
     @Test
-    void itShouldReturnFalse_WhenVerifyIfCardExistsWithNonExistingCard() {
+    void itShouldReturnFalse_WhenCardExistsWithNonExistingCard() {
 
         when(cardRespository.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        assertThat(Boolean.FALSE, is(equalTo(cardService.verifyIfCardExists(any(Long.class)))));
+        assertThat(Boolean.FALSE, is(equalTo(cardService.cardExists(any(Long.class)))));
         verify(cardRespository, times(1)).findById(any(Long.class));
     }
 

@@ -13,13 +13,13 @@ public interface CardService {
 
     List<CardDTO> listAll();
 
-    Card createCard(CardDTO cardDTO);
+    CardDTO createCard(CardDTO cardDTO);
 
     CardDTO changePrice(Long id, PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException;
 
     CardDTO changeNumberOfSameType(Long id, NumberOfCardsSameTypeDTO numberOfCardsSameTypeDTO) throws CardNotFoundException, ForbiddenException;
 
-    Boolean verifyIfCardExists(Long id);
+    Boolean cardExists(Long id);
 
     Card getCardById(Long id) throws CardNotFoundException;
 }

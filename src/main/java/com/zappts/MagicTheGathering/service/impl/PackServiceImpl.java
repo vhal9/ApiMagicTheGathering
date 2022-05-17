@@ -68,7 +68,11 @@ public class PackServiceImpl implements PackService {
 
         Pack pack = getPackbyId(idPack);
         verifyIfUserHasPermission(pack);
-        pack.addCard(createOrGetCardByCardDTO(cardDTO));
+
+        createCardIfNotExists(cardDTO);
+        Card card = cardMapper.execute(cardDTO);
+
+        pack.addCard(card);
         return packDTOMapper.execute(packRepository.save(pack));
     }
 
@@ -92,21 +96,15 @@ public class PackServiceImpl implements PackService {
         return packOptional.get();
     }
 
-    public Boolean isNewCard(Long id) {
-        return !(Objects.nonNull(id) && cardService.verifyIfCardExists(id));
-    }
-
     public Boolean packHasCard(Pack pack, Long idCard) {
         return pack.getCards().stream().anyMatch(
                 card -> Objects.equals(card.getId(), idCard)
         );
     }
 
-    private Card createOrGetCardByCardDTO(CardDTO cardDTO) {
-        if (isNewCard(cardDTO.getId())) {
-            return cardService.createCard(cardDTO);
-        } else {
-            return cardMapper.execute(cardDTO);
+    private void createCardIfNotExists(CardDTO cardDTO) {
+        if (!cardService.cardExists(cardDTO.getId())) {
+            cardDTO.setId(cardService.createCard(cardDTO).getId());
         }
     }
     private void removeCardWithId(Pack pack, Long idCard) throws RemoveNonExistentCardException {

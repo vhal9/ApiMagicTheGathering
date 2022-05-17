@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,11 +34,11 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Card createCard(CardDTO cardDTO) {
+    public CardDTO createCard(CardDTO cardDTO) {
         UserEntity user = userService.getLoggedUser();
         Card cardToSave = cardMapper.execute(cardDTO);
         cardToSave.setUser(user);
-        return cardRespository.save(cardToSave);
+        return cardDTOMapper.execute(cardRespository.save(cardToSave));
     }
 
     @Override
@@ -61,8 +62,10 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Boolean verifyIfCardExists(Long id) {
-        Optional<Card> cardOptional = cardRespository.findById(id);
+    public Boolean cardExists(Long id) {
+
+        Optional<Card> cardOptional = Objects.nonNull(id)
+                ? cardRespository.findById(id) : Optional.empty();
         return cardOptional.isPresent();
     }
 
