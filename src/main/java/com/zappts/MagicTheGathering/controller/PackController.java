@@ -35,7 +35,7 @@ public class PackController {
 
     @PostMapping
     public ResponseEntity<PackDTO> createPack(@RequestBody @Valid PackDTO packDTO) throws PackAlreadyExistsException {
-        return new ResponseEntity<>(packService.createPack(packDTO), HttpStatus.OK);
+        return new ResponseEntity<>(packService.createPack(packDTO), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/add")
