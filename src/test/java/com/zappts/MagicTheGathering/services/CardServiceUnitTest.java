@@ -4,7 +4,7 @@ import com.zappts.MagicTheGathering.builders.CardBuilder;
 import com.zappts.MagicTheGathering.builders.CardDTOBuilder;
 import com.zappts.MagicTheGathering.builders.UserEntityBuilder;
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
-import com.zappts.MagicTheGathering.domain.dto.NumberOfSameTypeOfCardDTO;
+import com.zappts.MagicTheGathering.domain.dto.NumberOfCardsSameTypeDTO;
 import com.zappts.MagicTheGathering.domain.dto.PriceOfCardDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.domain.entity.UserEntity;
@@ -161,22 +161,22 @@ public class CardServiceUnitTest {
 
     @Test
     void itShouldReturnCardDTO_WhenChangeNumberOfSameType() throws ForbiddenException, CardNotFoundException {
-        NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO = new NumberOfSameTypeOfCardDTO();
-        numberOfSameTypeOfCardDTO.setNumberOfSameType(10);
+        NumberOfCardsSameTypeDTO numberOfCardsSameTypeDTO = new NumberOfCardsSameTypeDTO();
+        numberOfCardsSameTypeDTO.setNumberOfSameType(10);
         Card cardMock = CardBuilder.builder().build().toCard();
 
         Card expectedCard = CardBuilder.builder().build().toCard();
-        expectedCard.setNumberOfCardsOfTheSameType(numberOfSameTypeOfCardDTO.getNumberOfSameType());
+        expectedCard.setNumberOfCardsOfTheSameType(numberOfCardsSameTypeDTO.getNumberOfSameType());
 
         CardDTO expectedCardDTO = CardDTOBuilder.builder().build().toCardDTO();
-        expectedCardDTO.setNumberOfCardsOfTheSameType(numberOfSameTypeOfCardDTO.getNumberOfSameType());
+        expectedCardDTO.setNumberOfCardsOfTheSameType(numberOfCardsSameTypeDTO.getNumberOfSameType());
 
         doNothing().when(userService).verifyIfUserHasPermission(any(UserEntity.class));
         when(cardRespository.findById(cardMock.getId())).thenReturn(Optional.of(cardMock));
         when(cardRespository.save(cardMock)).thenReturn(expectedCard);
         when(cardDTOMapper.execute(expectedCard)).thenReturn(expectedCardDTO);
 
-        CardDTO returnedCardDTO = cardService.changeNumberOfSameType(cardMock.getId(), numberOfSameTypeOfCardDTO);
+        CardDTO returnedCardDTO = cardService.changeNumberOfSameType(cardMock.getId(), numberOfCardsSameTypeDTO);
 
         verify(userService, times(1)).verifyIfUserHasPermission(any(UserEntity.class));
         verify(cardRespository, times(1)).findById(any(Long.class));
@@ -187,25 +187,25 @@ public class CardServiceUnitTest {
 
     @Test
     void itShouldReturnCardNotFoundException_WhenChangeNumberOfSameTypeWithInvalidCard(){
-        NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO = new NumberOfSameTypeOfCardDTO();
+        NumberOfCardsSameTypeDTO numberOfCardsSameTypeDTO = new NumberOfCardsSameTypeDTO();
         Card cardMock = CardBuilder.builder().build().toCard();
 
         when(cardRespository.findById(cardMock.getId())).thenReturn(Optional.empty());
 
         assertThrows(CardNotFoundException.class,
-                () -> cardService.changeNumberOfSameType(cardMock.getId(), numberOfSameTypeOfCardDTO));
+                () -> cardService.changeNumberOfSameType(cardMock.getId(), numberOfCardsSameTypeDTO));
     }
 
     @Test
     void itShouldReturnForbiddenException_WhenChangeNumberOfSameTypeWithInvalidUser() throws ForbiddenException {
-        NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO = new NumberOfSameTypeOfCardDTO();
+        NumberOfCardsSameTypeDTO numberOfCardsSameTypeDTO = new NumberOfCardsSameTypeDTO();
         Card cardMock = CardBuilder.builder().build().toCard();
 
         when(cardRespository.findById(cardMock.getId())).thenReturn(Optional.of(cardMock));
         doThrow(ForbiddenException.class).when(userService).verifyIfUserHasPermission(any());
 
         assertThrows(ForbiddenException.class,
-                () -> cardService.changeNumberOfSameType(cardMock.getId(), numberOfSameTypeOfCardDTO));
+                () -> cardService.changeNumberOfSameType(cardMock.getId(), numberOfCardsSameTypeDTO));
         verify(cardRespository, times(1)).findById(any(Long.class));
     }
 

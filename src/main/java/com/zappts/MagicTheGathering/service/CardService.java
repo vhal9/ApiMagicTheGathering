@@ -1,7 +1,7 @@
 package com.zappts.MagicTheGathering.service;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
-import com.zappts.MagicTheGathering.domain.dto.NumberOfSameTypeOfCardDTO;
+import com.zappts.MagicTheGathering.domain.dto.NumberOfCardsSameTypeDTO;
 import com.zappts.MagicTheGathering.domain.dto.PriceOfCardDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
@@ -17,7 +17,7 @@ public interface CardService {
 
     CardDTO changePrice(Long id, PriceOfCardDTO priceOfCardDTO) throws CardNotFoundException, ForbiddenException;
 
-    CardDTO changeNumberOfSameType(Long id, NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO) throws CardNotFoundException, ForbiddenException;
+    CardDTO changeNumberOfSameType(Long id, NumberOfCardsSameTypeDTO numberOfCardsSameTypeDTO) throws CardNotFoundException, ForbiddenException;
 
     Boolean verifyIfCardExists(Long id);
 

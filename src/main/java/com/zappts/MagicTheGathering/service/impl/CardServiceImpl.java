@@ -1,7 +1,7 @@
 package com.zappts.MagicTheGathering.service.impl;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
-import com.zappts.MagicTheGathering.domain.dto.NumberOfSameTypeOfCardDTO;
+import com.zappts.MagicTheGathering.domain.dto.NumberOfCardsSameTypeDTO;
 import com.zappts.MagicTheGathering.domain.dto.PriceOfCardDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.domain.entity.UserEntity;
@@ -51,12 +51,12 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardDTO changeNumberOfSameType(Long id, NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO)
+    public CardDTO changeNumberOfSameType(Long id, NumberOfCardsSameTypeDTO numberOfCardsSameTypeDTO)
             throws CardNotFoundException, ForbiddenException {
         Card card = getCardById(id);
         verifyIfUserHasPermission(card);
 
-        card.setNumberOfCardsOfTheSameType(numberOfSameTypeOfCardDTO.getNumberOfSameType());
+        card.setNumberOfCardsOfTheSameType(numberOfCardsSameTypeDTO.getNumberOfSameType());
         return cardDTOMapper.execute(cardRespository.save(card));
     }
 

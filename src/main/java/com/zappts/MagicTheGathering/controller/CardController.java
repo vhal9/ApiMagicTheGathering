@@ -1,7 +1,7 @@
 package com.zappts.MagicTheGathering.controller;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
-import com.zappts.MagicTheGathering.domain.dto.NumberOfSameTypeOfCardDTO;
+import com.zappts.MagicTheGathering.domain.dto.NumberOfCardsSameTypeDTO;
 import com.zappts.MagicTheGathering.domain.dto.PriceOfCardDTO;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
 import com.zappts.MagicTheGathering.exception.ForbiddenException;
@@ -31,10 +31,10 @@ public class CardController {
     }
 
     @PatchMapping("{id}/updateNumberOfSameType")
-    public ResponseEntity<CardDTO> changeNumberOfSameType(@PathVariable("id") Long id, @RequestBody @Valid NumberOfSameTypeOfCardDTO numberOfSameTypeOfCardDTO)
+    public ResponseEntity<CardDTO> changeNumberOfSameType(@PathVariable("id") Long id, @RequestBody @Valid NumberOfCardsSameTypeDTO numberOfCardsSameTypeDTO)
             throws CardNotFoundException, ForbiddenException {
 
-        return new ResponseEntity<>(cardService.changeNumberOfSameType(id, numberOfSameTypeOfCardDTO),
+        return new ResponseEntity<>(cardService.changeNumberOfSameType(id, numberOfCardsSameTypeDTO),
                 HttpStatus.OK);
     }
 }
