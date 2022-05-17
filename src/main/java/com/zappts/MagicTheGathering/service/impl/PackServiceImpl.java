@@ -1,6 +1,7 @@
 package com.zappts.MagicTheGathering.service.impl;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
+import com.zappts.MagicTheGathering.domain.dto.PackCreationDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.domain.entity.Pack;
@@ -8,10 +9,7 @@ import com.zappts.MagicTheGathering.domain.entity.UserEntity;
 import com.zappts.MagicTheGathering.domain.mapper.CardMapper;
 import com.zappts.MagicTheGathering.domain.mapper.PackDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.PackMapper;
-import com.zappts.MagicTheGathering.exception.ForbiddenException;
-import com.zappts.MagicTheGathering.exception.PackAlreadyExistsException;
-import com.zappts.MagicTheGathering.exception.PackNotFoundException;
-import com.zappts.MagicTheGathering.exception.RemoveNonExistentCardException;
+import com.zappts.MagicTheGathering.exception.*;
 import com.zappts.MagicTheGathering.repository.PackRepository;
 import com.zappts.MagicTheGathering.service.CardService;
 import com.zappts.MagicTheGathering.service.PackService;
@@ -54,11 +52,12 @@ public class PackServiceImpl implements PackService {
     }
 
     @Override
-    public PackDTO createPack(PackDTO packDTO) throws PackAlreadyExistsException {
-        verifyIfPackAlreadyExists(packDTO.getId());
+    @Transactional
+    public PackDTO createPack(PackCreationDTO packCreationDTO) throws SomeCardsNotFoundException {
         UserEntity user = userService.getLoggedUser();
-        Pack pack = packMapper.execute(packDTO);
+        Pack pack = packMapper.execute(packCreationDTO);
         pack.setUser(user);
+        pack.setCards(cardService.getListOfCardsByListOfIds(packCreationDTO.getIdCards()));
         return packDTOMapper.execute(packRepository.save(pack));
     }
 
@@ -132,12 +131,6 @@ public class PackServiceImpl implements PackService {
 
     private void verifyIfUserHasPermission(Pack pack) throws ForbiddenException {
         userService.verifyIfUserHasPermission(pack.getUser());
-    }
-
-    private void verifyIfPackAlreadyExists(Long id) throws PackAlreadyExistsException {
-        if (Objects.nonNull(id) && packRepository.findById(id).isPresent()) {
-            throw new PackAlreadyExistsException(id);
-        }
     }
 
 

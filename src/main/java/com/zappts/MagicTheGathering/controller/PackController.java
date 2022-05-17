@@ -1,6 +1,7 @@
 package com.zappts.MagicTheGathering.controller;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
+import com.zappts.MagicTheGathering.domain.dto.PackCreationDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackDTO;
 import com.zappts.MagicTheGathering.exception.*;
 import com.zappts.MagicTheGathering.service.PackService;
@@ -34,8 +35,8 @@ public class PackController {
     }
 
     @PostMapping
-    public ResponseEntity<PackDTO> createPack(@RequestBody @Valid PackDTO packDTO) throws PackAlreadyExistsException {
-        return new ResponseEntity<>(packService.createPack(packDTO), HttpStatus.CREATED);
+    public ResponseEntity<PackDTO> createPack(@RequestBody @Valid PackCreationDTO packCreationDTO) throws SomeCardsNotFoundException {
+        return new ResponseEntity<>(packService.createPack(packCreationDTO), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/add")

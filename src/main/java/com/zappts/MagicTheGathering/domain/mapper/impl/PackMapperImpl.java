@@ -1,6 +1,7 @@
 package com.zappts.MagicTheGathering.domain.mapper.impl;
 
 import com.zappts.MagicTheGathering.domain.dto.CardDTO;
+import com.zappts.MagicTheGathering.domain.dto.PackCreationDTO;
 import com.zappts.MagicTheGathering.domain.dto.PackDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.domain.entity.Pack;
@@ -24,6 +25,13 @@ public class PackMapperImpl implements PackMapper {
                 .id(packDTO.getId())
                 .name(packDTO.getName())
                 .cards(getListOfCards(packDTO.getCardsDTO()))
+                .build();
+    }
+
+    @Override
+    public Pack execute(PackCreationDTO packCreationDTO) {
+        return Pack.builder()
+                .name(packCreationDTO.getName())
                 .build();
     }
 

@@ -9,6 +9,7 @@ import com.zappts.MagicTheGathering.domain.mapper.CardDTOMapper;
 import com.zappts.MagicTheGathering.domain.mapper.CardMapper;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
 import com.zappts.MagicTheGathering.exception.ForbiddenException;
+import com.zappts.MagicTheGathering.exception.SomeCardsNotFoundException;
 import com.zappts.MagicTheGathering.repository.CardRespository;
 import com.zappts.MagicTheGathering.service.CardService;
 import lombok.RequiredArgsConstructor;
@@ -76,6 +77,15 @@ public class CardServiceImpl implements CardService {
             throw new CardNotFoundException(id);
         }
         return cardOptional.get();
+    }
+
+    @Override
+    public List<Card> getListOfCardsByListOfIds(List<Long> idCards) throws SomeCardsNotFoundException {
+        List<Card> cardList = cardRespository.findAllById(idCards);
+        if (!Objects.equals(cardList.size(), idCards.size())) {
+            throw new SomeCardsNotFoundException();
+        }
+        return cardList;
     }
 
     public void verifyIfUserHasPermission(Card card) throws ForbiddenException {

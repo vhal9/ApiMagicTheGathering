@@ -51,11 +51,20 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(PackAlreadyExistsException.class)
     public ResponseEntity<String> handlePackAlreadyExistsException(PackAlreadyExistsException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return handleBadRequestException(ex.getMessage());
+    }
+
+    @ExceptionHandler(SomeCardsNotFoundException.class)
+    public ResponseEntity<String> handleSomeCardsNotFoundException(SomeCardsNotFoundException ex) {
+        return handleBadRequestException(ex.getMessage());
     }
 
     private ResponseEntity<String> handleNotFoundException(String message) {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    private ResponseEntity<String> handleBadRequestException(String message) {
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
 }

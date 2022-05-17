@@ -6,6 +6,7 @@ import com.zappts.MagicTheGathering.domain.dto.PriceOfCardDTO;
 import com.zappts.MagicTheGathering.domain.entity.Card;
 import com.zappts.MagicTheGathering.exception.CardNotFoundException;
 import com.zappts.MagicTheGathering.exception.ForbiddenException;
+import com.zappts.MagicTheGathering.exception.SomeCardsNotFoundException;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface CardService {
     Boolean cardExists(Long id);
 
     Card getCardById(Long id) throws CardNotFoundException;
+
+    List<Card> getListOfCardsByListOfIds(List<Long> idCards) throws SomeCardsNotFoundException;
 }
