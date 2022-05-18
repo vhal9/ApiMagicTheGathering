@@ -102,7 +102,7 @@ public class PackServiceImpl implements PackService {
 
     public Pack getPackbyId(Long id) throws PackNotFoundException {
         Optional<Pack> packOptional = packRepository.findById(id);
-        if (packOptional.isEmpty()) {
+        if (!packOptional.isPresent()) {
             throw new PackNotFoundException(id);
         }
         return packOptional.get();
@@ -117,7 +117,7 @@ public class PackServiceImpl implements PackService {
     private void removeCardByIdFromPack(Pack pack, Long idCard) throws RemoveNonExistentCardException {
         Optional<Card> cardToRemove = pack.getCards().stream().filter(
                 card -> Objects.equals(card.getId(), idCard)).findFirst();
-        if (cardToRemove.isEmpty())
+        if (!cardToRemove.isPresent())
             throw new RemoveNonExistentCardException();
         pack.getCards().remove(cardToRemove.get());
     }

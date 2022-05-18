@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     public UserEntity getUserById(Long id) throws Exception {
         Optional<UserEntity> userOptional = userRepository.findById(id);
-        if (userOptional.isEmpty()){
+        if (!userOptional.isPresent()){
             throw new UserNotFoundException(id);
         }
         return userOptional.get();
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     private UserEntity getUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserEntity> userOptional = userRepository.findByUsername(username);
-        if (userOptional.isEmpty()){
+        if (!userOptional.isPresent()){
             throw new UsernameNotFoundException(username);
         }
         return userOptional.get();

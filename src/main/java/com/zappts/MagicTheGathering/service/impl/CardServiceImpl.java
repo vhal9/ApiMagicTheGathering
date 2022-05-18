@@ -73,7 +73,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public Card getCardById(Long id) throws CardNotFoundException {
         Optional<Card> cardOptional = cardRespository.findById(id);
-        if (cardOptional.isEmpty()) {
+        if (!cardOptional.isPresent()) {
             throw new CardNotFoundException(id);
         }
         return cardOptional.get();
