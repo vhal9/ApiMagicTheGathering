@@ -9,7 +9,7 @@
 
 Este repositorio contém uma API para o controle de Cartas do jogo Magic - The Gathering 
 
-A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring. 
+A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring e armazenando os dados no banco PostgreSQL. 
 
 ### Entidades
 
