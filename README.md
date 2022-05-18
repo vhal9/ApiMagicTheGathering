@@ -26,7 +26,6 @@ A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring.
 - JUnit
 - Mockito
 - H2 Database
-- Heroku
 
 ## Execução
 
