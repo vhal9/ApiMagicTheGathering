@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserDetailsService {
     public UserDTO createUser(UserDTO userDTO) throws UsernameAlreadyExistsException {
         UserEntity user = userMapper.execute(userDTO);
         user.setRole("USER");
-        Optional<UserEntity> userEntityOptional = userRepository.findByName(user.getUsername());
+        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(user.getUsername());
         if (userEntityOptional.isPresent()) {
             throw new UsernameAlreadyExistsException();
         }
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     private UserEntity getUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> userOptional = userRepository.findByName(username);
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()){
             throw new UsernameNotFoundException(username);
         }
