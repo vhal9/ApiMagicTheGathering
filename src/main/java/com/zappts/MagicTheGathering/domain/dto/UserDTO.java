@@ -1,5 +1,6 @@
 package com.zappts.MagicTheGathering.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class UserDTO {
 
     @NotEmpty(message = "Senha não pode ser vazia.")
     @Size(min = 8, max = 15, message = "Senha deve conter de 8 a 15 caracteres.")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 }
