@@ -49,9 +49,6 @@ public class PackServiceUnitTest {
     private PackDTOMapper packDTOMapper;
 
     @Mock
-    private PackCreationDTO packCreationDTO;
-
-    @Mock
     private UserServiceImpl userService;
 
     @Mock
@@ -102,7 +99,6 @@ public class PackServiceUnitTest {
     void itShouldReturnAPackNotFoundException_WhenFindPackById() {
 
         PackDTO expectedPackDTO = PackDTOBuilder.builder().build().toPackDTO();
-        Pack pack = PackBuilder.builder().build().toPack();
 
         when(packRepository.findById(expectedPackDTO.getId())).thenReturn(Optional.empty());
 
