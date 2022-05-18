@@ -16,8 +16,8 @@ public class UserDTO {
 
     private Long id;
 
-    @NotEmpty(message = "Nome não pode ser vazio.")
-    @Size(min = 4, max = 15, message = "Nome deve conter de 4 a 15 caracteres.")
+    @NotEmpty(message = "Campo username não pode ser vazio.")
+    @Size(min = 4, max = 15, message = "Campo username deve conter de 4 a 15 caracteres.")
     private String username;
 
     @NotEmpty(message = "Senha não pode ser vazia.")
