@@ -28,7 +28,7 @@ public class Pack {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Card> cards = new ArrayList<>();
 
