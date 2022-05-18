@@ -1,5 +1,6 @@
 package com.zappts.MagicTheGathering.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class PackCreationDTO {
 
     @NotBlank(message = "Campo nome não pode ser vazio.")
