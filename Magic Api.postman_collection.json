@@ -101,8 +101,32 @@
 				{
 					"name": "create Card",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"alvo\",\n\t\"edition\": \"edicao 1\",\n\t\"language\": \"PORTUGUESE\",\n\t\"isFoil\": true,\n\t\"price\": 2,\n\t\"numberOfCardsOfTheSameType\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:8081/magic/api/cards",
 							"host": [
@@ -129,16 +153,92 @@
 				{
 					"name": "Change Price",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"price\": 290.2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/magic/api/cards/1/updatePrice",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"magic",
+								"api",
+								"cards",
+								"1",
+								"updatePrice"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Change Number Of cards of the same type",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"numberOfSameType\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/magic/api/cards/1/updateNumberOfSameType",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"magic",
+								"api",
+								"cards",
+								"1",
+								"updateNumberOfSameType"
+							]
+						}
 					},
 					"response": []
 				}
@@ -209,7 +309,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"pack lendario\",\n\t\"idsCards\": [1,2]\n}",
+							"raw": "{\n\t\"name\": \"pack lendario\",\n\t\"idsCards\": [1]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -253,7 +353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"alvo\",\n\t\"edition\": \"teste\",\n\t\"language\": \"PORTUGUESE\",\n\t\"isFoil\": true, \n\t\"price\": 100.1,\n\t\"numberOfCardsOfTheSameType\": 2\n}",
+							"raw": "{\n\t\"name\": \"ogro\",\n\t\"edition\": \"edição 2\",\n\t\"language\": \"PORTUGUESE\",\n\t\"isFoil\": true, \n\t\"price\": 100.1,\n\t\"numberOfCardsOfTheSameType\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
