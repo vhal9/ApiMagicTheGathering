@@ -1,0 +1,580 @@
+{
+	"info": {
+		"_postman_id": "dc5eeb44-6a9a-4013-8573-248f63f72ee6",
+		"name": "Magic Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "findById",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/users/1",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/users/",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"User3\",\n\t\"password\": \"12345312\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/users/",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "create Card",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"alvo\",\n\t\"edition\": \"edicao 1\",\n\t\"language\": \"PORTUGUESE\",\n\t\"isFoil\": true,\n\t\"price\": 2,\n\t\"numberOfCardsOfTheSameType\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/cards",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/cards",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Price",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"price\": 290.2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/cards/1/updatePrice",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"cards",
+								"1",
+								"updatePrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Number Of cards of the same type",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"numberOfSameType\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/cards/1/updateNumberOfSameType",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"cards",
+								"1",
+								"updateNumberOfSameType"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pack",
+			"item": [
+				{
+					"name": "list all",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/packs?order_field=price",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"packs"
+							],
+							"query": [
+								{
+									"key": "order_field",
+									"value": "price"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find by id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/packs/1?order_field=name",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"packs",
+								"1"
+							],
+							"query": [
+								{
+									"key": "order_field",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Pack",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"pack lendario\",\n\t\"idsCards\": [1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/packs",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"packs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Card to pack",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"ogro\",\n\t\"edition\": \"edição 2\",\n\t\"language\": \"PORTUGUESE\",\n\t\"isFoil\": true, \n\t\"price\": 100.1,\n\t\"numberOfCardsOfTheSameType\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/packs/1/add",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"packs",
+								"1",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Cards by id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idsCards\": [1,2]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/packs/1/addCards",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"packs",
+								"1",
+								"addCards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove card",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345312",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "User2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://zappts-magic-the-gathering.herokuapp.com/magic/api/packs/1/remove/2",
+							"protocol": "https",
+							"host": [
+								"zappts-magic-the-gathering",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"magic",
+								"api",
+								"packs",
+								"1",
+								"remove",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
