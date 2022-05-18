@@ -5,9 +5,9 @@ server:
 # Banco Postgresql
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/banco
-    username: user
-    password: password
+    url: jdbc:postgresql://ec2-44-194-117-205.compute-1.amazonaws.com:5432/dodg1tqtnvs3v
+    username: fuhnsrqyvxxtik
+    password: 17501c26adb95397d4e5ebf8c5fc4cff8a87a17fdb6d17f25170d47f979d36cc
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
