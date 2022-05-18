@@ -10,6 +10,8 @@
 Este repositorio contém uma API para o controle de Cartas do jogo Magic - The Gathering 
 
 A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring e armazenando os dados no banco PostgreSQL. 
+ 
+## Essa documentação irá apresentar quais são as entidades envolvidas na solução, os endpoints da api, as dependências e tecnologias utilizadas, como importar e executar a aplicação localmente, a release disponibilizada no Heroku e uma seção de features sobre algumas possíveis evoluções para esta aplicação.
 
 ### Entidades
 
@@ -58,6 +60,7 @@ Para cada entidade temos alguns endpoints disponibilizados para o fluxo dos seus
 - Mockito
 - PostgreSQL 10.20
 - HttpBasic
+- Heroku
 
 ## Execução
 
@@ -104,13 +107,31 @@ mvn spring-boot:run
 ```shell script
 mvn clean test
 ```
+## Heroku
+
+A aplicação foi disponibilizada no heroku. Para isso, foi necessário alterar a versão do Java para a 8 e realizar alguns ajustes. Com isso a versão da aplicação que se encontra no heroku está na branch **development**. Foi adicionado uma feature ao fim dessa documentação para trazer essa alteração para a master, além de configurar os arquivos **application.yml** para executar ambientes diferentes.
+
+A aplicação se encontra no link: 
+```
+https://zappts-magic-the-gathering.herokuapp.com/magic/api/{recurso}
+```
+
+Já se tem um usuário cadastrado para realizar login:
+  - username: User2
+  - password: 12345312
+
+Utilize o link de exemplo para uma consulta aos usuários cadastrados:
+```
+https://zappts-magic-the-gathering.herokuapp.com/magic/api/users
+```
+
 
 ### Postman
 
-É possível importar uma coleção com as requisições configuradas para cada endpoint. 
-- Encontre o arquivo **Magic Api.postman_collection.json** na raiz do projeto.
+É possível importar duas coleções com as requisições configuradas para cada endpoint. Uma coleção para utilizar executando o projeto localmente e a outra para executar utilizando o recurso da aplicação no heroku. 
+- Encontre os arquivos **Magic Api.postman_collection.json** e **Magic Api - heroku.postman_collection.json** na raiz do projeto.
 - Com o postman aberto, seleciona um Workspace ou crie um novo.
-- Selecione as opções importar -> File -> Uploads File e selecione o arquivo **Magic Api.postman_collection.json**.
+- Selecione as opções importar -> File -> Uploads File e selecione os arquivos.
 - Dessa forma, o postman deve ficar como mostrado na figura abaixo.
 - Todas as requisições estão com a autenticação http basic configurada para o usuário indicado na requisição do método **create user**. É necessário executar essa requisição antes de todas as outras. É possivel criar mais de um usuário, basta alterar o username no corpo dessa requisição e alterá-lo também na aba **Authentication** de cada requisição para utilizá-lo.
 
@@ -119,7 +140,7 @@ mvn clean test
 
 ## Features
 
-- Disponibilizar API na nuvem
+- Disponibilizar API na nuvem ✔️
 - Migrar para o banco PostgreSQL ✔️
 - Adicionar Documentação com Swagger
 - Adicionar validação personalizadas para atributos Enum
@@ -127,4 +148,5 @@ mvn clean test
 - Adicionar testes unitários para a controller e para a service da entidade Usuário
 - Aumentar a cobertura de testes na service da entidade Pack
 - Evoluir autenticação para OAuth 2.0 em conjunto com JWT
+- Trazer o codigo da branch development para a master com os ajustes para o heroku e adicionar arquivos de configuração para cada ambiente (local e heroku).
 
