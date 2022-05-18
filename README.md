@@ -15,13 +15,13 @@ A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring.
 ## Dependências
 
 - JDK 11
-- Maven 3
 
 ## Tecnologias Utilizadas
 
 - Java
 - Spring Boot
 - Spring Security
+- Maven
 - Lombok
 - JUnit
 - Mockito
