@@ -116,15 +116,15 @@ mvn clean test
 
 ![image](https://user-images.githubusercontent.com/11220622/169059816-85ca29ea-e622-473e-913e-4ac7588fba12.png)
 
-Acesso a aplicação pelo postman, comece sempre executando a requisição do endpoint **create user**, o usuário será necessário para acessar os outros endpoints.
 
 ## Features
 
 - Disponibilizar API na nuvem
 - Migrar para o banco PostgreSQL ✔️
 - Adicionar Documentação com Swagger
-- Adicionar validação personalizadas para atributos Enum.
+- Adicionar validação personalizadas para atributos Enum
 - Adicionar testes unitários para a controller da entidade Pack
 - Adicionar testes unitários para a controller e para a service da entidade Usuário
-- Aumentar a cobertura de testes na service da entidade Pack.
+- Aumentar a cobertura de testes na service da entidade Pack
+- Evoluir autenticação para OAuth 2.0 em conjunto com JWT
 
