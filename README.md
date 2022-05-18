@@ -5,13 +5,16 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/vhal9/rasmoo-ms-grade-curricular)
 
 
+## Resumo
+
+Essa documentação irá apresentar quais são as entidades envolvidas na solução, os endpoints da api, as dependências e tecnologias utilizadas, como importar e executar a aplicação localmente, a release disponibilizada no Heroku e uma seção de features sobre algumas possíveis evoluções para esta aplicação.
+
 ## Descrição
 
 Este repositorio contém uma API para o controle de Cartas do jogo Magic - The Gathering 
 
 A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring e armazenando os dados no banco PostgreSQL. 
  
-## Essa documentação irá apresentar quais são as entidades envolvidas na solução, os endpoints da api, as dependências e tecnologias utilizadas, como importar e executar a aplicação localmente, a release disponibilizada no Heroku e uma seção de features sobre algumas possíveis evoluções para esta aplicação.
 
 ### Entidades
 
