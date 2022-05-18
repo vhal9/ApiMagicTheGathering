@@ -5,12 +5,43 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/vhal9/rasmoo-ms-grade-curricular)
 
 
-## Resumo
+## Descrição
 
 Este repositorio contém uma API para o controle de Cartas do jogo Magic - The Gathering 
 
 A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring. 
 
+### Entidades
+
+Nesse projeto temos basicamente 3 entidades, são elas:
+
+- **User:** Responsável por manter os dados do usuário e fornecer os dados para login.
+- **Card:** Responsável por manter os dados das cartas.
+- **Pack:** Responsável por manter os dados das listas de cartas dos usuários.
+
+### Endpoints
+
+Para cada entidade temos alguns endpoints disponibilizados para o fluxo dos seus dados. Como método de autenticação foi utilizado o **HttpBasic**, com isso é necessário informar o usuário e senha em cada endpoint para acessar os dados, com exceção ao endpoint **create user**, responsável pela criação do usuário.
+
+- Para a entidade User têm-se 3 endpoints:
+  - find by id: Responsável por encontrar um usuário pelo id.
+  - list all: Lista todos os usuários
+  - create user: Cria um usuário
+
+- Para a entidade Card têm-se 4 endpoints:
+  - create card: Responsável pela criação de uma carta.
+  - list all: Lista todas as cartas.
+  - change price: Altera o preço de uma carta. É necessário que a carta esteja vinculada ao usuário logado.
+  - change number of cards of the same type: Altera o atributo número de cartas do mesmo tipo. É necessário que a carta esteja vinculada ao usuário logado.
+
+- Para a entidade Pack têm-se 6 endpoints:
+  - list all: Lista todas os packs e suas cartas. Permite a ordenação das cartas utilizando o paramêtro **order_field**, aceitando a ordenação pelos campos **name** e **price**.
+  - find by id: Responsável por encontrar um pack pelo campo id.
+  - create pack: Cria um novo pack, aceitando enviar uma lista de id's de cartas existentes e vinculadas ao usuário logado.
+  - add card to pack: Responsável por criar uma nova carta e adiciona-la a um pack existente, referenciado pelo id na url.
+  - add cards by id: Responsável por adicionar diversas cartas existentes a um pack, referenciando o pack pelo id na url e os id's das cartas referenciados no corpo da requisição.
+  - remove card: Responsável por remover uma carta de um pack, a partir de seus id's, ambos referenciados na requisição.
+ 
 
 ## Dependências
 
@@ -26,6 +57,7 @@ A aplicação foi desenvolvida utilizando Java em conjunto do Framework Spring.
 - JUnit
 - Mockito
 - PostgreSQL 10.20
+- HttpBasic
 
 ## Execução
 
@@ -73,10 +105,18 @@ mvn spring-boot:run
 mvn clean test
 ```
 
-Acesso a aplicação pelo link:
-```
-http://localhost:8081/magic
-```
+### Postman
+
+É possível importar uma coleção com as requisições configuradas para cada endpoint. 
+- Encontre o arquivo **Magic Api.postman_collection.json** na raiz do projeto.
+- Com o postman aberto, seleciona um Workspace ou crie um novo.
+- Selecione as opções importar -> File -> Uploads File e selecione o arquivo **Magic Api.postman_collection.json**.
+- Dessa forma, o postman deve ficar como mostrado na figura abaixo.
+- Todas as requisições estão com a autenticação http basic configurada para o usuário indicado na requisição do método **create user**. É necessário executar essa requisição antes de todas as outras. É possivel criar mais de um usuário, basta alterar o username no corpo dessa requisição e alterá-lo também na aba **Authentication** de cada requisição para utilizá-lo.
+
+![image](https://user-images.githubusercontent.com/11220622/169059816-85ca29ea-e622-473e-913e-4ac7588fba12.png)
+
+Acesso a aplicação pelo postman, comece sempre executando a requisição do endpoint **create user**, o usuário será necessário para acessar os outros endpoints.
 
 ## Features
 
@@ -86,4 +126,5 @@ http://localhost:8081/magic
 - Adicionar validação personalizadas para atributos Enum.
 - Adicionar testes unitários para a controller da entidade Pack
 - Adicionar testes unitários para a controller e para a service da entidade Usuário
+- Aumentar a cobertura de testes na service da entidade Pack.
 
